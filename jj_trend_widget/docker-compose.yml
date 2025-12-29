@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  odoo:
+    image: odoo:16
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8070:8069"
+    env_file:
+      - .env
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=odoo
+      - ODOO_ADMIN_PASSWORD=admin
+    volumes:
+      # Mount your custom addons directory
+      - ./jj_trend_widget2:/mnt/extra-addons/jj_trend_widget2
+      # Optional: Mount additional addons if you have them
+      # - ./other-addons:/mnt/extra-addons
+      # Odoo data persistence
+      - odoo-web-data:/var/lib/odoo
+      # Odoo configuration
+      - ./odoo.conf:/etc/odoo/odoo.conf:ro
+    command: --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons --dev=reload,qweb,werkzeug,xml --db-filter=.*
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8069/web/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:
+

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="jj_trend_widget2.TrendAdminView">
+        <div class="o_jj_scroll_container">
+            <div class="o_jj_trend_admin_view p-3">
+                <div class="o_filters d-flex mb-3 gap-2">
+                    <select class="form-select" t-att-name="'platform'" t-on-change="onFilterChange">
+                        <option value="">All Platforms</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="twitter">Twitter/X</option>
+                        <option value="youtube">YouTube</option>
+                    </select>
+                    <input type="text" class="form-control" t-att-name="'hashtag'"
+                           placeholder="Hashtag/Topic"
+                           t-on-change="onFilterChange"/>
+                    <input type="date" class="form-control" t-att-name="'dateFrom'" t-on-change="onFilterChange"/>
+                    <input type="date" class="form-control" t-att-name="'dateTo'" t-on-change="onFilterChange"/>
+                    <input type="number" class="form-control" t-att-name="'minEngagement'"
+                           placeholder="Min Engagement"
+                           t-on-change="onFilterChange"/>
+                    <button class="btn btn-primary" t-on-click="onApplyFilters">Apply</button>
+                </div>
+
+                <t t-if="state.loading">
+                    <p>Loading…</p>
+                </t>
+                <t t-else="">
+                    <div class="table-responsive-wrapper">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Platform</th>
+                                    <th>Timestamp</th>
+                                    <th>Title</th>
+                                    <th>Engagement</th>
+                                    <th>Industry</th>
+                                    <th>Source</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="state.trends" t-as="trend" t-key="(trend.id or trend.url) + '_' + trend_index">
+                                    <tr>
+                                        <td>
+                                            <span t-attf-class="badge badge-{{trend.platform.toLowerCase()}}">
+                                                <t t-esc="trend.platform"/>
+                                            </span>
+                                        </td>
+                                        <td><t t-esc="trend.timestamp"/></td>
+                                        <td><t t-esc="trend.title"/></td>
+                                        <td><t t-esc="trend.engagement_score"/></td>
+                                        <td><t t-esc="trend.industry"/></td>
+                                        <td>
+                                            <a t-att-href="trend.url" target="_blank" class="btn btn-sm btn-link">View</a>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="jj_trend_widget2.TrendHotNow">
+        <div class="o_jj_scroll_container">
+            <div class="o_jj_trend_hot_now p-3">
+                <h2>What’s Hot Right Now</h2>
+                <div class="o_filters d-flex mb-3 gap-2">
+                    <select class="form-select" t-att-name="'platform'" t-on-change="onFilterChange">
+                        <option value="">All Platforms</option>
+                        <option value="tiktok">TikTok</option>
+                        <option value="instagram">Instagram</option>
+                        <option value="x">X (Twitter)</option>
+                        <option value="facebook">Facebook</option>
+                        <option value="linkedin">LinkedIn</option>
+                        <option value="youtube">YouTube</option>
+                    </select>
+
+                    <input type="text" class="form-control" t-att-name="'hashtag'"
+                           placeholder="Hashtag/Topic"
+                           t-on-change="onFilterChange"/>
+
+                    <input type="date" class="form-control" t-att-name="'dateFrom'" t-on-change="onFilterChange"/>
+                    <input type="date" class="form-control" t-att-name="'dateTo'" t-on-change="onFilterChange"/>
+
+                    <input type="number" class="form-control" t-att-name="'minEngagement'"
+                           placeholder="Min Engagement"
+                           t-on-change="onFilterChange"/>
+
+                    <button class="btn btn-primary" t-on-click="onApplyFilters">Filter</button>
+                </div>
+
+                <t t-if="state.loading">
+                    <p>Loading trends…</p>
+                </t>
+                <t t-else="">
+                    <div class="o_trend_cards d-flex flex-wrap gap-3">
+                        <t t-foreach="state.trends" t-as="trend" t-key="(trend.id or trend.url) + '_' + trend_index">
+                            <div class="o_trend_card p-3 border rounded shadow-sm" style="width: 300px;">
+                                <div class="o_trend_platform mb-2">
+                                    <span t-attf-class="badge badge-{{trend.platform.toLowerCase()}}">
+                                        <t t-esc="trend.platform"/>
+                                    </span>
+                                </div>
+                                <div class="o_trend_title fw-bold mb-2">
+                                    <t t-esc="trend.title"/>
+                                </div>
+                                <div class="o_trend_meta small text-muted mb-2">
+                                    Engagement: <t t-esc="trend.engagement_score"/>
+                                    <br/>
+                                    <t t-esc="trend.timestamp"/>
+                                </div>
+                                <a t-att-href="trend.url" class="btn btn-sm btn-outline-primary w-100" target="_blank">View Post</a>
+                            </div>
+                        </t>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

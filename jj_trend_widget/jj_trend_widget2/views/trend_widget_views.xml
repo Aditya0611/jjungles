@@ -1,0 +1,26 @@
+<odoo>
+    <record id="action_jj_trend_hot_now" model="ir.actions.client">
+        <field name="name">What’s Hot Right Now</field>
+        <field name="tag">jj_trend_hot_now</field>
+    </record>
+
+    <!-- Optional: menu for generic access -->
+    <menuitem id="menu_jj_trend_hot_now"
+              name="What's Hot Right Now"
+              parent="menu_jj_trend_root"
+              action="action_jj_trend_hot_now"
+              sequence="30"/>
+
+    <!-- DASHBOARD INJECTION: Inheriting JJungles Dashboard to show the widget -->
+    <record id="view_dashboard_inherited_jj_trend" model="ir.ui.view">
+        <field name="name">jjungles.dashboard.trend.widget</field>
+        <field name="model">board.board</field>
+        <field name="inherit_id" ref="jjungles_dashboard.view_dashboard_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//column[1]" position="inside">
+                <action name="%(jj_trend_widget2.action_jj_trend_hot_now)d" 
+                        string="What's Hot Right Now"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

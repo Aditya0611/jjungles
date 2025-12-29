@@ -1,0 +1,131 @@
+/* JJ Trend Widget Styling */
+
+/* Main Containers */
+.o_jj_scroll_container {
+    display: block !important;
+    max-height: 80vh !important;
+    height: 100% !important;
+    width: 100% !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    padding-bottom: 50px;
+}
+
+.o_jj_trend_admin_view,
+.o_jj_trend_hot_now {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    display: block !important;
+    width: 100%;
+    height: 100%;
+}
+
+/* Ensure the table moves independently */
+.table-responsive-wrapper {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* Responsive Filter Bar */
+.o_filters {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    display: flex !important;
+    /* Force flex */
+    flex-direction: row;
+    /* Default to horizontal */
+    align-items: center;
+    gap: 10px;
+}
+
+/* Make inputs look better and fit on one line */
+.o_filters .form-control,
+.o_filters .form-select {
+    flex: 1;
+    /* Allow sharing space */
+    min-width: 120px;
+    /* Minimum readable width */
+    max-width: 250px;
+    /* Prevent being too large */
+    border-radius: 4px;
+}
+
+.o_filters .btn {
+    white-space: nowrap;
+    /* Prevent button text wrapping */
+}
+
+/* Ensure data table is scrollable on mobile */
+.o_jj_trend_admin_view .table-responsive-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Trend Cards (Hot Now View) */
+.o_trend_cards {
+    justify-content: center;
+}
+
+.o_trend_card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 2px solid #e9ecef !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+}
+
+.o_trend_card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
+    border-color: #007bff !important;
+}
+
+/* Platform Badges */
+.badge-tiktok {
+    background-color: #000000;
+    color: #fff;
+}
+
+.badge-instagram {
+    background-image: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #fff;
+}
+
+.badge-youtube {
+    background-color: #ff0000;
+    color: #fff;
+}
+
+.badge-linkedin {
+    background-color: #0077b5;
+    color: #fff;
+}
+
+.badge-facebook {
+    background-color: #1877f2;
+    color: #fff;
+}
+
+.badge-twitter {
+    background-color: #1da1f2;
+    color: #fff;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 768px) {
+    .o_filters {
+        flex-direction: column;
+    }
+
+    .o_filters .form-control,
+    .o_filters .form-select,
+    .o_filters .btn {
+        width: 100% !important;
+    }
+
+    .o_trend_card {
+        width: 100% !important;
+    }
+}

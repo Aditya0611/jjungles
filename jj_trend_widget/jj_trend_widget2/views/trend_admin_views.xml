@@ -1,0 +1,18 @@
+<odoo>
+    <!-- Action must be defined before menu references it -->
+    <record id="action_jj_trend_admin_view" model="ir.actions.client">
+        <field name="name">Raw Trend Data</field>
+        <field name="tag">jj_trend_admin_view</field>
+    </record>
+
+    <!-- Menu for Admin QA -->
+    <menuitem id="menu_jj_trend_root"
+              name="Trend Engine"
+              sequence="10"/>
+
+    <menuitem id="menu_jj_trend_admin"
+              name="Raw Trend Data"
+              parent="menu_jj_trend_root"
+              action="action_jj_trend_admin_view"
+              sequence="20"/>
+</odoo>
