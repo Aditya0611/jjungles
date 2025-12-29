@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Tree View -->
+    <record id="view_scheduler_settings_tree" model="ir.ui.view">
+        <field name="name">scheduler.settings.tree</field>
+        <field name="model">scheduler.settings</field>
+        <field name="arch" type="xml">
+            <tree string="Scheduler Settings" decoration-muted="not enabled">
+                <field name="platform"/>
+                <field name="enabled" widget="boolean_toggle"/>
+                <field name="frequency_hours" widget="float_time"/>
+                <field name="last_run_at"/>
+                <field name="next_run_at"/>
+                <field name="run_count"/>
+                <field name="success_rate" widget="progressbar"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="view_scheduler_settings_form" model="ir.ui.view">
+        <field name="name">scheduler.settings.form</field>
+        <field name="model">scheduler.settings</field>
+        <field name="arch" type="xml">
+            <form string="Scheduler Settings">
+                <header>
+                    <button name="action_enable" string="Enable" type="object" 
+                            class="oe_highlight" attrs="{'invisible': [('enabled', '=', True)]}"/>
+                    <button name="action_disable" string="Disable" type="object" 
+                            attrs="{'invisible': [('enabled', '=', False)]}"/>
+                    <button name="action_process_queue" string="Process Queue Now" type="object" 
+                            class="btn-secondary" icon="fa-refresh" help="Process pending uploads and retries"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="platform" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Configuration">
+                            <field name="enabled"/>
+                            <field name="frequency_hours" widget="float_time"/>
+                        </group>
+                        <group string="Statistics">
+                            <field name="last_run_at" readonly="1"/>
+                            <field name="next_run_at" readonly="1"/>
+                            <field name="run_count" readonly="1"/>
+                            <field name="success_count" readonly="1"/>
+                            <field name="failure_count" readonly="1"/>
+                            <field name="success_rate" widget="progressbar" readonly="1"/>
+                        </group>
+                    </group>
+                    <group string="Metadata">
+                        <field name="metadata" widget="ace" options="{'mode': 'json'}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_scheduler_settings" model="ir.actions.act_window">
+        <field name="name">Scheduler Settings</field>
+        <field name="res_model">scheduler.settings</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Configure scraper scheduling
+            </p>
+            <p>
+                Set the frequency for each social media platform scraper.
+            </p>
+        </field>
+    </record>
+</odoo>

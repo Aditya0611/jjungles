@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="social_media_scraper.WhatsHotWidget" owl="1">
+        <div class="o_whats_hot_widget">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <i class="fa fa-fire"/> What's Hot Right Now
+                    </h4>
+                </div>
+                <div class="card-body p-0">
+                    <div class="p-2 border-bottom bg-light">
+                        <div class="row g-2">
+                            <div class="col-4">
+                                <select class="form-select form-select-sm" name="platform" t-on-change="onFilterChange">
+                                    <option value="">All Platforms</option>
+                                    <option value="tiktok">TikTok</option>
+                                    <option value="instagram">Instagram</option>
+                                    <option value="twitter">Twitter</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <select class="form-select form-select-sm" name="days" t-on-change="onFilterChange">
+                                    <option value="1">Last 24h</option>
+                                    <option value="7">Last 7d</option>
+                                    <option value="30">Last 30d</option>
+                                </select>
+                            </div>
+                            <div class="col-4">
+                                <select class="form-select form-select-sm" name="min_score" t-on-change="onFilterChange">
+                                    <option value="4.0">Score 4+</option>
+                                    <option value="6.0" selected="1">Score 6+</option>
+                                    <option value="8.0">Score 8+</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <t t-if="state.loading">
+                        <div class="p-4 text-center text-muted">
+                            <i class="fa fa-spinner fa-spin fa-2x"/>
+                            <p class="mt-2">Loading trends...</p>
+                        </div>
+                    </t>
+                    <t t-elif="trends and trends.length">
+                        <div class="list-group list-group-flush">
+                            <t t-foreach="trends" t-as="trend" t-key="trend.id">
+                                <div class="list-group-item list-group-item-action">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1">
+                                                <span t-esc="getPlatformIcon(trend.platform)"/>
+                                                <strong t-esc="trend.name"/>
+                                            </h6>
+                                            <div class="d-flex gap-3 small text-muted">
+                                                <span>
+                                                    <i class="fa fa-chart-line"/> 
+                                                    Score: <strong t-esc="trend.score.toFixed(1)"/>
+                                                </span>
+                                                <span>
+                                                    <i class="fa fa-file-alt"/> 
+                                                    <t t-esc="formatNumber(trend.posts_count)"/> posts
+                                                </span>
+                                                <span t-if="trend.views_count">
+                                                    <i class="fa fa-eye"/> 
+                                                    <t t-esc="formatNumber(trend.views_count)"/> views
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <span t-attf-class="badge bg-#{getSentimentColor(trend.sentiment_label)}">
+                                                <t t-esc="trend.sentiment_label"/>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </div>
+                    </t>
+                    <t t-else="">
+                        <div class="p-4 text-center text-muted">
+                            <i class="fa fa-info-circle fa-3x mb-3"/>
+                            <p>No hot trends at the moment</p>
+                            <small>Check back soon!</small>
+                        </div>
+                    </t>
+                </div>
+                <div class="card-footer text-muted small">
+                    <i class="fa fa-clock"/> Updated every 6 hours
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

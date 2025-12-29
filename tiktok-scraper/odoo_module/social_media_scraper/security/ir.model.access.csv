@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_scheduler_settings_user,scheduler.settings.user,model_scheduler_settings,base.group_user,1,1,1,1
+access_social_media_trend_user,social.media.trend.user,model_social_media_trend,base.group_user,1,0,0,0
+access_social_media_trend_manager,social.media.trend.manager,model_social_media_trend,base.group_system,1,1,1,1

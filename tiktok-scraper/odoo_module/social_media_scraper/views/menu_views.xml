@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Main Menu -->
+    <menuitem id="menu_social_media_scraper_root"
+              name="Social Media Trends"
+              sequence="10"
+              web_icon="social_media_scraper,static/description/icon.png"/>
+
+    <!-- Trending Topics Menu -->
+    <menuitem id="menu_social_media_trends"
+              name="Trending Topics"
+              parent="menu_social_media_scraper_root"
+              action="action_social_media_trend"
+              sequence="10"/>
+
+    <!-- Scheduler Settings Menu -->
+    <menuitem id="menu_scheduler_settings"
+              name="Scheduler Settings"
+              parent="menu_social_media_scraper_root"
+              action="action_scheduler_settings"
+              sequence="20"/>
+
+    <!-- Configuration Menu -->
+    <menuitem id="menu_configuration"
+              name="Configuration"
+              parent="menu_social_media_scraper_root"
+              sequence="100"
+              groups="base.group_system"/>
+</odoo>
