@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.twitter</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <app data-string="Twitter Scraper" string="Twitter Scraper" name="twitter_integrator">
+                    <block title="Scraper Configuration" name="twitter_scraper_setting_container">
+                        <setting string="Scraper Paths" help="Configure the paths for the external scraper script.">
+                            <field name="twitter_scraper_path" placeholder="/path/to/twitter_scraper_app"/>
+                            <field name="twitter_python_path" placeholder="/path/to/venv/bin/python"/>
+                        </setting>
+                        <setting string="Execution Options" help="Runtime arguments for the scraper.">
+                            <field name="twitter_scraper_args" placeholder="--run-once"/>
+                        </setting>
+                        <setting string="Schedule Frequency" help="How often the scraper runs automatically.">
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="scraper_interval_number" class="o_light_label" style="width: 50px;"/>
+                                    <field name="scraper_interval_type" class="o_light_label"/>
+                                </div>
+                            </div>
+                        </setting>
+                    </block>
+                </app>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_twitter_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'twitter_integrator'}</field>
+    </record>
+    
+    <!-- Optional: Menu item if you want it under a custom menu, otherwise it appears in General Settings app list -->
+</odoo>

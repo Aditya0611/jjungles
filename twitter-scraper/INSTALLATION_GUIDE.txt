@@ -1,0 +1,180 @@
+═══════════════════════════════════════════════════════════════
+   TWITTER TRENDING HASHTAGS SCRAPER - INSTALLATION GUIDE
+═══════════════════════════════════════════════════════════════
+
+STEP 1: EXTRACT FILES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Extract all files from the ZIP to a folder on your computer.
+
+You should have:
+  ✓ t3_scraper.py (main script)
+  ✓ requirements.txt (dependencies)
+  ✓ .env.example (configuration template)
+  ✓ README.md (detailed documentation)
+  ✓ INSTALLATION_GUIDE.txt (this file)
+
+
+STEP 2: INSTALL PYTHON
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+If Python is not installed:
+  1. Download Python 3.7+ from https://www.python.org/downloads/
+  2. During installation, CHECK "Add Python to PATH"
+  3. Verify installation:
+     
+     Windows PowerShell:
+       python --version
+     
+     Mac/Linux Terminal:
+       python3 --version
+
+
+STEP 3: INSTALL DEPENDENCIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Open Terminal/PowerShell in the extracted folder and run:
+
+  pip install -r requirements.txt
+
+Then download TextBlob language data:
+
+  python -m textblob.download_corpora
+
+This may take a few minutes.
+
+
+STEP 4: SET UP SUPABASE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Go to https://supabase.com and create a free account
+
+2. Create a new project (note: takes ~2 minutes to initialize)
+
+3. In your project dashboard:
+   • Click "Settings" (gear icon in sidebar)
+   • Click "API"
+   • Copy your "Project URL" (looks like: https://xxxxx.supabase.co)
+   • Copy your "anon public" key (long string starting with eyJ...)
+
+4. Create the database table:
+   • Click "SQL Editor" in the sidebar
+   • Paste this SQL and click "Run":
+
+   CREATE TABLE twitter (
+     id BIGSERIAL PRIMARY KEY,
+     platform TEXT DEFAULT 'Twitter',
+     topic_hashtag TEXT NOT NULL,
+     engagement_score FLOAT,
+     sentiment_polarity FLOAT,
+     sentiment_label TEXT,
+     language TEXT,
+     posts BIGINT DEFAULT 0,
+     views BIGINT DEFAULT 0,
+     retweets BIGINT DEFAULT 0,
+     likes BIGINT DEFAULT 0,
+     metadata JSONB,
+     version_id UUID,
+     scraped_at TIMESTAMPTZ DEFAULT NOW(),
+     first_seen TIMESTAMPTZ,
+     last_seen TIMESTAMPTZ
+   );
+   
+   -- Create index for faster lookups
+   CREATE INDEX idx_twitter_hashtag ON twitter(platform, topic_hashtag);
+
+
+STEP 5: CONFIGURE ENVIRONMENT VARIABLES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Create a new file named ".env" (note the dot at the start)
+   
+   Windows: Right-click in folder → New → Text Document
+            Rename to ".env" (delete .txt extension)
+   
+   Mac/Linux: In terminal, type: touch .env
+
+2. Open .env with a text editor and add:
+
+   SUPABASE_URL=paste_your_project_url_here
+   SUPABASE_KEY=paste_your_anon_key_here
+
+   Example:
+   SUPABASE_URL=https://abcdefg123456.supabase.co
+   SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+
+3. Save and close the file
+
+
+STEP 6: RUN THE SCRAPER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+In Terminal/PowerShell (in the script's folder):
+
+  python t3_scraper.py
+
+You should see output like:
+  ✓ Environment variables loaded successfully
+  ✓ Supabase client initialized
+  ✓ Trying to fetch data from trends24.in/india/
+  ✓ Successfully found X trending Indian hashtags!
+  ✓ Processing topics...
+  ✓ SUCCESS: X fresh records inserted!
+
+
+STEP 7: VERIFY DATA IN SUPABASE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Go to your Supabase project dashboard
+2. Click "Table Editor" in the sidebar
+3. Select the "twitter" table
+4. You should see the scraped trending hashtags!
+
+
+TROUBLESHOOTING
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+ERROR: "python is not recognized"
+  → Add Python to PATH or use full path: C:\Python311\python.exe
+
+ERROR: "FATAL: Supabase URL and Key must be set"
+  → Check that .env file exists in the same folder as t3_scraper.py
+  → Verify credentials are correct (no quotes needed)
+  → File must be named ".env" exactly (not .env.txt)
+
+ERROR: "No module named 'requests'"
+  → Run: pip install -r requirements.txt
+
+ERROR: "No trending Indian hashtags found"
+  → Check internet connection
+  → trends24.in might be temporarily down
+  → Try again in a few minutes
+
+ERROR: Supabase insert fails
+  → Verify table schema matches Step 4
+  → Check RLS policies in Supabase (Settings > Policies)
+  → Ensure your Supabase project is active
+
+
+SCHEDULING AUTOMATIC RUNS
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Windows (Task Scheduler):
+  1. Open Task Scheduler
+  2. Create Basic Task
+  3. Set trigger (e.g., daily at 9 AM)
+  4. Action: Start a program
+     Program: C:\Python311\python.exe
+     Arguments: t3_scraper.py
+     Start in: C:\path\to\your\folder
+
+Mac/Linux (Crontab):
+  1. Open terminal: crontab -e
+  2. Add line: 0 9 * * * cd /path/to/folder && python3 t3_scraper.py
+     (This runs daily at 9 AM)
+
+
+SUPPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+For technical support, contact the developer with:
+  • Error message (full text)
+  • Python version (python --version)
+  • Operating system
+
+═══════════════════════════════════════════════════════════════
+                   Happy Scraping! 🚀
+═══════════════════════════════════════════════════════════════
+
