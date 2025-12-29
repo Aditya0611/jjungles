@@ -1,0 +1,57 @@
+{
+  "scraper": {
+    "headless": true,
+    "debug": false,
+    "rate_limit_per_minute": 30,
+    "max_concurrent": 1,
+    "request_timeout": 30,
+    "page_load_timeout": 45
+  },
+  "proxy": {
+    "enabled": true,
+    "health_check_interval": 300,
+    "max_failures": 3,
+    "rotation_strategy": "round_robin"
+  },
+  "session": {
+    "enabled": true,
+    "ttl_seconds": 3600,
+    "max_sessions": 10,
+    "persist_cookies": true
+  },
+  "anti_detection": {
+    "rotate_user_agents": true,
+    "rotate_viewports": true,
+    "human_like_delays": true,
+    "mouse_movement": true,
+    "stealth_mode": true
+  },
+  "throttling": {
+    "min_delay_seconds": 1.0,
+    "max_delay_seconds": 3.0,
+    "randomize_delays": true,
+    "respect_rate_limits": true
+  },
+  "retry": {
+    "max_attempts": 3,
+    "backoff_multiplier": 2,
+    "min_wait_seconds": 1,
+    "max_wait_seconds": 10
+  },
+  "monitoring": {
+    "log_metrics": true,
+    "metrics_interval": 60,
+    "alert_on_failure_rate": 0.5,
+    "alert_on_proxy_failures": 0.8
+  },
+  "scheduler": {
+    "frequency_hours": 3,
+    "enabled": true,
+    "run_on_start": true,
+    "categories": [
+      "technology",
+      "business",
+      "health"
+    ]
+  }
+}

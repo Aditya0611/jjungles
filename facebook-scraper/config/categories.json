@@ -1,0 +1,180 @@
+{
+  "technology": {
+    "keywords": [
+      "technology",
+      "tech",
+      "innovation",
+      "digital",
+      "AI",
+      "software",
+      "coding",
+      "programming"
+    ],
+    "hashtags": [
+      "technology",
+      "tech",
+      "innovation",
+      "AI",
+      "artificialintelligence",
+      "machinelearning",
+      "software",
+      "coding",
+      "programming",
+      "cybersecurity"
+    ]
+  },
+  "business": {
+    "keywords": [
+      "business",
+      "entrepreneur",
+      "startup",
+      "marketing",
+      "finance",
+      "leadership"
+    ],
+    "hashtags": [
+      "business",
+      "entrepreneur",
+      "startup",
+      "businessgrowth",
+      "marketing",
+      "leadership",
+      "success",
+      "smallbusiness",
+      "entrepreneurship",
+      "investing"
+    ]
+  },
+  "health": {
+    "keywords": [
+      "health",
+      "fitness",
+      "wellness",
+      "medical",
+      "nutrition",
+      "mentalhealth"
+    ],
+    "hashtags": [
+      "health",
+      "fitness",
+      "wellness",
+      "healthcare",
+      "nutrition",
+      "mentalhealth",
+      "workout",
+      "healthy",
+      "healthylifestyle",
+      "medicine"
+    ]
+  },
+  "food": {
+    "keywords": [
+      "food",
+      "cooking",
+      "recipe",
+      "restaurant",
+      "chef",
+      "culinary"
+    ],
+    "hashtags": [
+      "food",
+      "foodie",
+      "cooking",
+      "recipe",
+      "foodporn",
+      "instafood",
+      "homemade",
+      "yummy",
+      "delicious",
+      "chef"
+    ]
+  },
+  "travel": {
+    "keywords": [
+      "travel",
+      "tourism",
+      "vacation",
+      "adventure",
+      "explore",
+      "destination"
+    ],
+    "hashtags": [
+      "travel",
+      "travelphotography",
+      "wanderlust",
+      "vacation",
+      "adventure",
+      "explore",
+      "tourism",
+      "travelgram",
+      "instatravel",
+      "nature"
+    ]
+  },
+  "fashion": {
+    "keywords": [
+      "fashion",
+      "style",
+      "beauty",
+      "makeup",
+      "clothing",
+      "outfit"
+    ],
+    "hashtags": [
+      "fashion",
+      "style",
+      "ootd",
+      "fashionblogger",
+      "beauty",
+      "makeup",
+      "fashionista",
+      "instafashion",
+      "shopping",
+      "outfitoftheday"
+    ]
+  },
+  "entertainment": {
+    "keywords": [
+      "entertainment",
+      "movies",
+      "music",
+      "gaming",
+      "celebrity",
+      "streaming"
+    ],
+    "hashtags": [
+      "entertainment",
+      "movies",
+      "music",
+      "gaming",
+      "tvshows",
+      "celebrity",
+      "Hollywood",
+      "streaming",
+      "gamer",
+      "film"
+    ]
+  },
+  "sports": {
+    "keywords": [
+      "sports",
+      "football",
+      "basketball",
+      "soccer",
+      "athlete",
+      "fitness"
+    ],
+    "hashtags": [
+      "sports",
+      "fitness",
+      "athlete",
+      "training",
+      "football",
+      "basketball",
+      "soccer",
+      "gym",
+      "motivation",
+      "sportsnews"
+    ]
+  }
+}

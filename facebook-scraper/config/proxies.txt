@@ -1,0 +1,17 @@
+# ============================================================================
+# PROXY CONFIGURATION TEMPLATE
+# ============================================================================
+# Add your proxy URLs below, one per line.
+# Lines starting with '#' are ignored.
+#
+# Format:
+# http://user:password@host:port
+# http://host:port
+# socks5://user:password@host:port
+#
+# Examples:
+# http://127.0.0.1:8080
+# http://myuser:mypassword@proxy.example.com:3128
+# ============================================================================
+
+# Paste your proxies below:

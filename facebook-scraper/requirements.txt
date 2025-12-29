@@ -1,0 +1,18 @@
+playwright==1.48.0
+supabase==2.11.0
+textblob==0.18.0
+python-dotenv==1.0.1
+tenacity==9.0.0
+python-json-logger==3.2.1
+langdetect==1.0.9
+
+# Free API options (optional - install as needed)
+facebook-scraper>=0.2.58  # Completely free, open-source (recommended)
+requests>=2.31.0  # For Graph API and Crawlbase
+
+# Perfect scraper dependencies
+tenacity>=9.0.0  # Retry logic (already in main deps)
+
+# Advanced sentiment analysis (optional - for better accuracy)
+# transformers>=4.30.0  # HuggingFace transformers (uncomment to enable)
+# torch>=2.0.0  # PyTorch backend (uncomment to enable)
