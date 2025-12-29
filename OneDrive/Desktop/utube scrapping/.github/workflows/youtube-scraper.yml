@@ -1,0 +1,50 @@
+name: YouTube Hashtag Scraper
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Every 4 hours
+    - cron: "0 */4 * * *"
+
+jobs:
+  run-scraper:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install --with-deps
+
+      - name: Run Tests
+        run: |
+          pytest tests/
+
+      - name: Run YouTube hashtag scraper
+        env:
+          # Required
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+
+          # Optional configuration (set in GitHub repo secrets as needed)
+          HEADLESS: "true"
+          CONCURRENCY: ${{ secrets.CONCURRENCY }}
+          PROXY_SERVER: ${{ secrets.PROXY_SERVER }}
+          OUTPUT_DIR: "out"
+
+          # Database / Supabase (optional)
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          USE_DATABASE: ${{ secrets.USE_DATABASE }}
+        run: |
+          python main.py --locales US,IN --categories all --limit 200 --top 50 --output out
+
+
