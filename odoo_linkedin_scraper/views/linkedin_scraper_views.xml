@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="linkedin_scraper_view_tree" model="ir.ui.view">
+        <field name="name">linkedin.scraper.view.tree</field>
+        <field name="model">linkedin.scraper</field>
+        <field name="arch" type="xml">
+            <tree string="LinkedIn Scraper Runs">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="records_count"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="linkedin_scraper_view_form" model="ir.ui.view">
+        <field name="name">linkedin.scraper.view.form</field>
+        <field name="model">linkedin.scraper</field>
+        <field name="arch" type="xml">
+            <form string="LinkedIn Scraper Run">
+                <header>
+                    <button name="action_run_scraper" type="object" string="Run Scraper Now" class="oe_highlight" attrs="{'invisible': [('status', '=', 'running')]}"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="records_count"/>
+                    </group>
+                    <notebook>
+                        <page string="Logs">
+                            <field name="log_output" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_linkedin_scraper" model="ir.actions.act_window">
+        <field name="name">Scraper Runs</field>
+        <field name="res_model">linkedin.scraper</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_linkedin_scraper_root" name="LinkedIn Scraper" sequence="10"/>
+    <menuitem id="menu_linkedin_scraper_runs" name="Scraper Runs" parent="menu_linkedin_scraper_root" action="action_linkedin_scraper" sequence="10"/>
+    <menuitem id="menu_linkedin_scraper_config" name="Configuration" parent="menu_linkedin_scraper_root" action="action_linkedin_scraper_config" sequence="20"/>
+</odoo>

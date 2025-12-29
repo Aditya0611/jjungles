@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.linkedin.scraper</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="LinkedIn Scraper" string="LinkedIn Scraper" data-key="odoo_linkedin_scraper">
+                    <h2>LinkedIn Scraper Configuration</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="linkedin_scraper_active"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="linkedin_scraper_active"/>
+                                <div class="text-muted">
+                                    Enable/Disable the scheduled scraper runs.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('linkedin_scraper_active', '=', False)]}">
+                            <div class="o_setting_left_pane"/>
+                            <div class="o_setting_right_pane">
+                                <label for="linkedin_scraper_interval_number" string="Run Every"/>
+                                <div class="content-group">
+                                    <div class="mt16">
+                                        <field name="linkedin_scraper_interval_number" class="o_light_label" style="width: 50px;"/>
+                                        <field name="linkedin_scraper_interval_type" class="o_light_label" style="width: 100px;"/>
+                                    </div>
+                                </div>
+                                <div class="mt16">
+                                    <label for="linkedin_scraper_nextcall"/>
+                                    <field name="linkedin_scraper_nextcall"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_linkedin_scraper_config" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'odoo_linkedin_scraper'}</field>
+    </record>
+</odoo>

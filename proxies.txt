@@ -1,0 +1,27 @@
+# LinkedIn Hashtag Scraper - Proxy Configuration File
+# 
+# Add your proxies here, one per line
+# Format options:
+#   1. host:port                    (for proxies without authentication)
+#   2. host:port:username:password (for proxies with authentication)
+#
+# Examples:
+#   123.45.67.89:8080
+#   123.45.67.89:8080:myuser:mypass
+#
+# Free proxy sources (use at your own risk):
+#   - https://www.proxy-list.download/
+#   - https://free-proxy-list.net/
+#   - https://www.proxyscrape.com/
+#
+# Paid proxy services (more reliable):
+#   - Bright Data (formerly Luminati)
+#   - Smartproxy
+#   - Oxylabs
+#   - Proxy-Cheap
+#
+# Note: Free proxies are often unreliable and may be slow or blocked.
+# For production use, consider paid proxy services.
+
+# Add your proxies below (remove this comment when adding proxies):
+
