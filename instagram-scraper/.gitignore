@@ -1,0 +1,18 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+config.py
+*.log
+main copy.py
+main copy 2.py
+vrnv/
+*.zip
+*_delivery_*.zip
+*.png
+*.jpg
+*.jpeg
+trends_export_*.json
+trends_export_*.csv
+client_delivery_temp/

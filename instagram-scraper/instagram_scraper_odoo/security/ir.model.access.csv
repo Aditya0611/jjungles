@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_instagram_scraper_config,instagram_scraper_config,model_instagram_scraper_config,,1,1,1,1
+access_instagram_trend,instagram_trend,model_instagram_trend,,1,1,1,1

@@ -1,0 +1,8 @@
+# Instagram Scraper Proxy List
+# Format: http://user:pass@host:port OR http://host:port
+# One proxy per line. Lines starting with # are ignored.
+
+# Examples:
+# http://proxy-provider.com:8080
+# http://user123:password456@1.2.3.4:5000
+# http://myproxy.net:3128

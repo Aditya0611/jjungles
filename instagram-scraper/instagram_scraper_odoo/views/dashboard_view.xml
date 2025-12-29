@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Tree View -->
+        <record id="view_instagram_trend_tree" model="ir.ui.view">
+            <field name="name">instagram.trend.tree</field>
+            <field name="model">instagram.trend</field>
+            <field name="arch" type="xml">
+                <tree string="Trending Hashtags" decoration-info="engagement_score &gt; 1000" decoration-danger="engagement_score &lt; 100">
+                    <field name="scraped_at"/>
+                    <field name="platform"/>
+                    <field name="hashtag"/>
+                    <field name="engagement_score"/>
+                    <field name="likes"/>
+                    <field name="comments"/>
+                    <field name="views"/>
+                    <field name="category"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Search/Filter View -->
+        <record id="view_instagram_trend_search" model="ir.ui.view">
+            <field name="name">instagram.trend.search</field>
+            <field name="model">instagram.trend</field>
+            <field name="arch" type="xml">
+                <search string="Search Trends">
+                    <field name="hashtag"/>
+                    <field name="category"/>
+                    <filter string="Instagram" name="platform_instagram" domain="[('platform', '=', 'Instagram')]"/>
+                    <filter string="TikTok" name="platform_tiktok" domain="[('platform', '=', 'TikTok')]"/>
+                    <filter string="Twitter" name="platform_twitter" domain="[('platform', '=', 'Twitter')]"/>
+                    <separator/>
+                    <filter string="High Engagement" name="high_engagement" domain="[('engagement_score', '&gt;', 1000)]"/>
+                    <filter string="Today" name="today" domain="[('scraped_at', '&gt;=', context_today().strftime('%Y-%m-%d 00:00:00'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Platform" name="group_platform" context="{'group_by': 'platform'}"/>
+                        <filter string="Category" name="group_category" context="{'group_by': 'category'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Graph View (Visual Widget) -->
+        <record id="view_instagram_trend_graph" model="ir.ui.view">
+            <field name="name">instagram.trend.graph</field>
+            <field name="model">instagram.trend</field>
+            <field name="arch" type="xml">
+                <graph string="Engagement Analysis" type="bar">
+                    <field name="hashtag" type="row"/>
+                    <field name="engagement_score" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_instagram_trend_dashboard" model="ir.actions.act_window">
+            <field name="name">What's Hot Right Now</field>
+            <field name="res_model">instagram.trend</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="context">{'search_default_today': 1, 'search_default_high_engagement': 1}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No trends found yet!
+              </p><p>
+                Wait for the scraper to run run via Cron or manually sync.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_instagram_trend_dashboard" parent="menu_instagram_scraper_root" action="action_instagram_trend_dashboard" sequence="10"/>
+    </data>
+</odoo>
