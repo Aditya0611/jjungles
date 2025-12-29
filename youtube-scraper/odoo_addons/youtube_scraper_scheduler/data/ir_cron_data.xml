@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="ir_cron_youtube_scraper_action" model="ir.cron">
+            <field name="name">YouTube Scraper: Run Scraper</field>
+            <field name="model_id" ref="base.model_res_config_settings"/>
+            <field name="state">code</field>
+            <field name="code">
+import subprocess
+import os
+
+# Get parameters from settings
+params = model.env['ir.config_parameter'].sudo()
+scraper_path = params.get_param('youtube_scraper.path')
+python_exec = params.get_param('youtube_scraper.python_executable', 'python3')
+
+if scraper_path and os.path.exists(scraper_path):
+    # Run the scraper with configured locales and categories
+    locales = params.get_param('youtube_scraper.locales', 'US')
+    categories = params.get_param('youtube_scraper.categories', '')
+    
+    cmd = [python_exec, "main.py", "--locales", locales]
+    if categories:
+        cmd.extend(["--categories", categories])
+    
+    try:
+        result = subprocess.run(
+            cmd, 
+            cwd=scraper_path, 
+            capture_output=True, 
+            text=True
+        )
+        if result.returncode != 0:
+            model.env['ir.logging'].sudo().create({
+                'name': 'YouTube Scraper',
+                'type': 'server',
+                'level': 'error',
+                'dbname': model.env.cr.dbname,
+                'message': f"Scraper Failed:\n{result.stderr}",
+                'path': 'ir.cron',
+                'line': '0',
+                'func': 'cron_youtube_scraper'
+            })
+    except Exception as e:
+         model.env['ir.logging'].sudo().create({
+                'name': 'YouTube Scraper',
+                'type': 'server',
+                'level': 'error',
+                'dbname': model.env.cr.dbname,
+                'message': f"Cron Exception: {str(e)}",
+                'path': 'ir.cron',
+                'line': '0',
+                'func': 'cron_youtube_scraper'
+            })
+else:
+    model.env['ir.logging'].sudo().create({
+        'name': 'YouTube Scraper',
+        'type': 'server',
+        'level': 'warning',
+        'dbname': model.env.cr.dbname,
+        'message': f"Scraper path not configured or not found: {scraper_path}",
+        'path': 'ir.cron',
+        'line': '0',
+        'func': 'cron_youtube_scraper'
+    })
+            </field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>
